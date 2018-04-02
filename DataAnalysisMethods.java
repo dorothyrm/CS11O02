@@ -222,9 +222,7 @@ public class RedditDataAnalysis {
 	}
 	
 	
-		// pass people as a parameter
 		public static double calcAverage(int[] people) {
-		   // IMPORTANT: this must be a double, otherwise you're dividing an integer by an integer and you will get the wrong answer
 		   double sum = 0;
 		   for (int i=0; i < people.length; i++) {
 		        sum = sum + people[i];

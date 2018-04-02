@@ -1,93 +1,249 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
+public class RedditDataAnalysis {
+	
+	boolean findProfanity(String lineToAnalzye)
+	{
+		String lineToAnalyzeLowerCase = lineToAnalzye.toLowerCase();
+		
+		if ((lineToAnalyzeLowerCase.contains("fuck") || lineToAnalyzeLowerCase.contains("bitch")) || (lineToAnalyzeLowerCase.contains("shit") || lineToAnalyzeLowerCase.contains("skank"))) 
+		{
+			return true;
+		} 
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	public int [] getCommentsNum(String fileToRead)
+	{
+		int [] numCommentsArray=new int[6465];
+		
+		try
+		{
+			FileReader myFileReader=new FileReader(fileToRead);
+			BufferedReader myBufferReader= new BufferedReader(myFileReader);
+			String line=null;
+			int postCounter=0;
+			while ((line=myBufferReader.readLine())!=null)
+			{
+				int numCommentsPost=Integer.parseInt(line);
+				
+				numCommentsArray[postCounter]=numCommentsPost;
+				postCounter+=1;
+				
+				
+				
+			}
+			return numCommentsArray;
+			
+			
+		}
+		catch (Exception ex)
+		{
+			System.out.println("I'm sorry, I wasn't able to find your file.");
+		}
+		
+		return numCommentsArray;
+			
+	}
+	
+	public int [] getUpvotesNum(String fileToRead)
+	{
+		int [] numUpvotesArray=new int[6465];
+		
+		try
+		{
+			FileReader myFileReader=new FileReader(fileToRead);
+			BufferedReader myBufferReader= new BufferedReader(myFileReader);
+			String line=null;
+			int UpCountr=0;
+			while ((line=myBufferReader.readLine())!=null)
+			{
+				int numUpvotesPost=Integer.parseInt(line);
+				
+				numUpvotesArray[UpCountr]=numUpvotesPost;
+				UpCountr+=1;
+				
+				
+				
+			}
+			return numUpvotesArray;
+			
+			
+		}
+		catch (Exception ex)
+		{
+			System.out.println("I'm sorry, I wasn't able to find your file.");
+		}
+		
+		return numUpvotesArray;
+			
+	}
+	
+	
+	
+	
+	
+	
+	boolean findPolarizingTopic(String lineToAnalzye)
+	{
+		String lineToAnalyzeLowerCase = lineToAnalzye.toLowerCase();
+		
+		if ((lineToAnalyzeLowerCase.contains("russia") || lineToAnalyzeLowerCase.contains("hillary")) || (lineToAnalyzeLowerCase.contains("supremacy") || lineToAnalyzeLowerCase.contains("putin")||lineToAnalyzeLowerCase.contains("racism"))) 
+		{
+			return true;
+		} 
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	RedditPosts [] getPostsRedditProfanity(String fileToRead)
+	{
+		RedditPosts [] RedditPosts=new RedditPosts[6465];
+		
+		try
+		{
+			FileReader myFileReader=new FileReader(fileToRead);
+			BufferedReader myBufferReader= new BufferedReader(myFileReader);
+			String line=null;
+			int postCounter=0;
+			while ((line=myBufferReader.readLine())!=null)
+			{
+				RedditPosts[postCounter]=new RedditPosts(line);
+				postCounter+=1;
+				
+				
+				
+			}
+			return RedditPosts;
+			
+			
+		}
+		catch (Exception ex)
+		{
+			System.out.println("I'm Sorry, I wasn't able to find your file");
+		}
+		return RedditPosts;
+			
+	}
+	void readRedditFileAndProf(String fileToRead)
+	{
+		System.out.println("ready to read:"+fileToRead);
+		try
+		{
+			FileReader myFileReader=new FileReader(fileToRead);
+			BufferedReader myBufferReader= new BufferedReader(myFileReader);
+			String line=null;
+			while ((line=myBufferReader.readLine())!=null)
+			{
+				if (findProfanity(line)==true)
+					
+					System.out.println("line:"+line);
+			}
+			System.out.println("exited while:");
+			
+			
+	
+			
+			
+			
+		}
+		catch (Exception ex)
+		{
+			System.out.println("I don't think I was able to find your file");
+		}
+	}
+		
+		
+		
+		
+		
+		RedditPosts [] getPostsRedditPol(String fileToRead)
+		{
+			RedditPosts [] RedditPosts=new RedditPosts[6465];
+			
+			try
+			{
+				FileReader myFileReader=new FileReader(fileToRead);
+				BufferedReader myBufferReader= new BufferedReader(myFileReader);
+				String line=null;
+				int postCounter=0;
+				while ((line=myBufferReader.readLine())!=null)
+				{
+					RedditPosts[postCounter]=new RedditPosts(line);
+					postCounter+=1;
+					
+					
+					
+				}
+				return RedditPosts;
+				
+				
+			}
+			catch (Exception ex)
+			{
+				System.out.println("I'm Sorry, I wasn't able to find your file");
+			}
+			return RedditPosts;
+				
+		}
+		void readRedditFileAndPol(String fileToRead)
+		{
+			System.out.println("ready to read:"+fileToRead);
+			try
+			{
+				FileReader myFileReader=new FileReader(fileToRead);
+				BufferedReader myBufferReader= new BufferedReader(myFileReader);
+				String line=null;
+				while ((line=myBufferReader.readLine())!=null)
+				{
+					if (findPolarizingTopic(line)==true)
+						
+						System.out.println("line:"+line);
+				}
+				System.out.println("exited while:");
+				
+				
+		
+				
+				
+				
+			}
+			catch (Exception ex)
+			{
+				System.out.println("I don't think I was able to find your file");
+			}
+			
+	}
+	
+	
+		// pass people as a parameter
+		public static double calcAverage(int[] people) {
+		   // IMPORTANT: this must be a double, otherwise you're dividing an integer by an integer and you will get the wrong answer
+		   double sum = 0;
+		   for (int i=0; i < people.length; i++) {
+		        sum = sum + people[i];
+		   }
+		   // remove the ()
+		   double result = sum / people.length;
+		   System.out.println(result);
 
-public class DataAnalysisMethods {
-	String fileToAnalyze;
+		   // return something
+		   return result;
+		}
+
+
+
 	
-	boolean detectPositivePosts(String lineToAnalzye)
-	{
-		String lineToAnalyzeLowerCase = lineToAnalzye.toLowerCase();
-		
-		if ((lineToAnalyzeLowerCase.contains("good") || lineToAnalyzeLowerCase.contains("awesome")) || (lineToAnalyzeLowerCase.contains("best") || lineToAnalyzeLowerCase.contains("great")) )
-		{
-			return true;
-		} 
-		else
-		{
-			return false;
-		}
-	}
 	
-	void readRedditFileForPositive(String fileToRead)
-	{
-		System.out.println("ready to read:" +fileToRead);
-		int positivePostCounter = 0;
-		try
-		{
-			FileReader myFileReader = new FileReader(fileToRead);
-			System.out.println("I was able to open your file!");
-			BufferedReader myBufferReader =  new BufferedReader(myFileReader);
-			System.out.println("Ready to start buffering!");
-			String line="";
-			while ((line=myBufferReader.readLine()) != null)
-			{
-				if (detectPositivePosts(line) == true)
-				{
-					positivePostCounter++;
-					System.out.println("Positive post #" + positivePostCounter + ": " + line);
-				}
-			}
-		
-		}
-		catch(Exception e)
-		{
-			
-		}
-		System.out.println("There are " + positivePostCounter + " positive posts.");
-	}
 	
-	boolean detectNegativePosts(String lineToAnalzye)
-	{
-		String lineToAnalyzeLowerCase = lineToAnalzye.toLowerCase();
-		
-		if ((lineToAnalyzeLowerCase.contains("bad") || lineToAnalyzeLowerCase.contains("poor")) || (lineToAnalyzeLowerCase.contains("worst") || lineToAnalyzeLowerCase.contains("awful")) )
-		{
-			return true;
-		} 
-		else
-		{
-			return false;
-		}
-	}
 	
-	void readRedditFileForNegative(String fileToRead)
-	{
-		System.out.println("ready to read:" +fileToRead);
-		int negativePostCounter = 0;
-		try
-		{
-			FileReader myFileReader = new FileReader(fileToRead);
-			System.out.println("I was able to open your file!");
-			BufferedReader myBufferReader =  new BufferedReader(myFileReader);
-			System.out.println("Ready to start buffering!");
-			String line="";
-			while ((line=myBufferReader.readLine()) != null)
-			{
-				if (detectNegativePosts(line) == true)
-				{
-					negativePostCounter++;
-					System.out.println("Negative post #" + negativePostCounter + ": " + line);
-				}
-			}
-		
-		}
-		catch(Exception e)
-		{
-			
-		}
-		System.out.println("There are " + negativePostCounter + " negative posts.");
-	}
+	
+	
+	
 }
-
-	
-

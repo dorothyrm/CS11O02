@@ -222,20 +222,6 @@ public class RedditDataAnalysis {
 	}
 	
 	
-		public static double calcAverage(int[] people) {
-		   double sum = 0;
-		   for (int i=0; i < people.length; i++) {
-		        sum = sum + people[i];
-		   }
-		   // remove the ()
-		   double result = sum / people.length;
-		   System.out.println(result);
-
-		   // return something
-		   return result;
-		}
-
-
 
 	
 	
